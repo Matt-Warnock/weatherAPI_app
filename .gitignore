@@ -1,0 +1,3 @@
+coverage/
+.env
+city_list.rb
