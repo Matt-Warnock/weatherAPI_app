@@ -36,10 +36,10 @@ RSpec.describe SQLDatabase do
       expect(result.count).to eq(1)
     end
 
-    it 'returns a success message if no expections are made' do
+    it 'returns true if no expections are made' do
       result = database.augment(weather_data)
 
-      expect(result).to include('Successful')
+      expect(result).to be true
     end
 
     context 'if data is bad' do
@@ -48,10 +48,17 @@ RSpec.describe SQLDatabase do
       it 'does not raise an error' do
         expect { database.augment(bad_data) }.not_to raise_error
       end
-      it 'returns a failure message' do
+
+      it 'returns false' do
         result = database.augment(bad_data)
 
-        expect(result).to include('Bad weather data! NOT NULL constraint failed')
+        expect(result).to be false
+      end
+
+      it 'logs a failure message' do
+        database.augment(bad_data)
+
+        expect(database.error_message).to include('Bad weather data! NOT NULL constraint failed')
       end
     end
   end

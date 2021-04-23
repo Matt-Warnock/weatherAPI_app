@@ -10,10 +10,6 @@ class SuccessResponse
     @error_message = nil
   end
 
-  def ok?
-    true
-  end
-
   def body
     if response.body.empty?
       @error_message = "I couldn't manage to get any weather info."

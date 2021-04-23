@@ -3,8 +3,11 @@
 require 'sqlite3'
 
 class SQLDatabase
+  attr_reader :error_message
+
   def initialize(file_path)
     @db = SQLite3::Database.new(file_path)
+    @error_message = nil
     create_table
     setup_name_index
   end
@@ -14,9 +17,10 @@ class SQLDatabase
       name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
       ) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', order_row(data))
 
-    'Successful'
+    true
   rescue SQLite3::ConstraintException => e
-    "Bad weather data! #{e}"
+    @error_message = "Bad weather data! #{e}"
+    false
   end
 
   def retrieve_weather(city)

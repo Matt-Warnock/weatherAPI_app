@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 class FailureResponse
+  attr_reader :error_message
+
   def initialize(error)
     @error = error
-  end
-
-  def ok?
-    false
+    @error_message = nil
   end
 
   def body
+    @error_message = check_error
+    {}
+  end
+
+  private
+
+  def check_error
     case @error.http_code
     when 401
       'Your API key is invalid!'

@@ -4,31 +4,35 @@ require 'rest-client'
 require 'failure_response'
 
 RSpec.describe FailureResponse do
-  describe '#ok?' do
-    it 'returns false' do
-      custom_response = failure_response(nil)
-
-      expect(custom_response.ok?).to be(false)
-    end
-  end
-
   describe '#body' do
-    it 'returns key error message if 401 code is received' do
-      custom_response = failure_response(401)
-
-      expect(custom_response.body).to include('API key')
-    end
-
-    it 'returns an invalid city message if 404 code is received' do
+    it 'returns an empty hash' do
       custom_response = failure_response(404)
 
-      expect(custom_response.body).to include('invalid city')
+      expect(custom_response.body).to eq({})
     end
 
-    it 'returns exception message on any other response codes' do
+    it 'logs key error message if 401 code is received' do
+      custom_response = failure_response(401)
+
+      custom_response.body
+
+      expect(custom_response.error_message).to include('API key')
+    end
+
+    it 'logs an invalid city message if 404 code is received' do
+      custom_response = failure_response(404)
+
+      custom_response.body
+
+      expect(custom_response.error_message).to include('invalid city')
+    end
+
+    it 'logs exception message on any other response codes' do
       custom_response = failure_response(408)
 
-      expect(custom_response.body).to include('HTTP status code 408')
+      custom_response.body
+
+      expect(custom_response.error_message).to include('HTTP status code 408')
     end
   end
 
