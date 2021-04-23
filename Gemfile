@@ -5,6 +5,7 @@ ruby '3.0.0'
 
 gem 'rest-client', '~> 2.1'
 gem 'sinatra', '~> 2.1'
+gem 'sqlite3', '~> 1.4', '>= 1.4.2'
 gem 'thin', '~> 1.8'
 
 group :test do
