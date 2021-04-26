@@ -61,12 +61,12 @@ RSpec.describe OpenWeatherClient do
         expect { client.check_weather(city_name) }.not_to raise_error
       end
 
-      it 'returns a exception message' do
+      it 'returns an custom response' do
         stub_with_querys(&:to_timeout)
 
         result = client.check_weather(city_name)
 
-        expect(result.body).to eq('Timed out connecting to server')
+        expect(result).to be_an_instance_of(FailureResponse)
       end
     end
 
@@ -80,12 +80,12 @@ RSpec.describe OpenWeatherClient do
         expect { client.check_weather(city_name) }.not_to raise_error
       end
 
-      it 'returns a exception message' do
+      it 'returns an custom response' do
         stub_with_querys { |stub| stub.to_return(status: 408) }
 
         result = client.check_weather(city_name)
 
-        expect(result.body).to eq('408 Request Timeout')
+        expect(result).to be_an_instance_of(FailureResponse)
       end
     end
   end

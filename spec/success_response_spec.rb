@@ -6,14 +6,6 @@ require 'success_response'
 RSpec.describe SuccessResponse do
   let(:weather_body) { File.open('fixtures/london_weather.json').read }
 
-  describe '#ok?' do
-    it 'returns true' do
-      custom_response = described_class.new(successful_response)
-
-      expect(custom_response.ok?).to be(true)
-    end
-  end
-
   describe '#body' do
     context 'if response has an empty body' do
       it 'creates an error message' do
