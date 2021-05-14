@@ -19,7 +19,7 @@ class SQLDatabase
 
     true
   rescue SQLite3::ConstraintException => e
-    @error_message = "Bad weather data! #{e}"
+    @error_message = e.message
     false
   end
 

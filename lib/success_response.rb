@@ -10,15 +10,17 @@ class SuccessResponse
     @error_message = nil
   end
 
+  def ok?
+    body
+    !error_message
+  end
+
   def body
-    if response.body.empty?
-      @error_message = "I couldn't manage to get any weather info."
-      return {}
-    end
+    return {} if response.body.empty?
 
     @body ||= format_data(parse_body)
   rescue JSON::ParserError => e
-    @error_message = "I got an unexpected result from Open Weather #{e}"
+    @error_message = e.message
     {}
   end
 

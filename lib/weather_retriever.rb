@@ -28,7 +28,7 @@ class WeatherRetriever
 
   def augment_database_with(city_name)
     response = client.check_weather(city_name)
-    return presenter.log_error(response.error_message) if response.body.empty?
+    return presenter.log_error(response.error_message) unless response.ok?
 
     successful_entry = database.augment(response.body)
     presenter.log_error(database.error_message) unless successful_entry

@@ -57,7 +57,7 @@ RSpec.describe SQLDatabase do
       it 'logs a failure message' do
         database.augment(bad_data)
 
-        expect(database.error_message).to include('Bad weather data! NOT NULL constraint failed')
+        expect(database.error_message).to include('NOT NULL constraint failed: weather.name')
       end
     end
   end
