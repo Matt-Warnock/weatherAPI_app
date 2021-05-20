@@ -9,7 +9,7 @@ gem 'sqlite3', '~> 1.4', '>= 1.4.2'
 gem 'thin', '~> 1.8'
 
 group :test do
-  gem 'coveralls_reborn', '~> 0.21.0', require: false
+  gem 'coveralls_reborn', '~> 0.22.0', require: false
   gem 'dotenv', '~> 2.7', '>= 2.7.6'
   gem 'pry', '~> 0.12'
   gem 'rack-test', '~> 1.1'
