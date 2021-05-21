@@ -5,7 +5,6 @@ require 'sql_database'
 RSpec.describe SQLDatabase do
   let!(:database) { described_class.new('file::memory:?cache=shared') }
   let(:sql) { SQLite3::Database.open('file::memory:?cache=shared') }
-  let(:weather_data) { JSON.load_file('fixtures/london_weather.json', { symbolize_names: true }) }
 
   after { sql.execute 'DROP TABLE weather' }
 
@@ -18,18 +17,18 @@ RSpec.describe SQLDatabase do
 
   describe '#augment' do
     it 'adds weather information to the database' do
-      database.augment(weather_data)
+      database.augment(london_weather_data)
 
       result = sql.query "SELECT * FROM weather WHERE name = 'London'" do |rows|
         rows.next_hash.transform_keys(&:to_sym)
       end
 
-      expect(result).to eq(london_weather_output)
+      expect(result).to eq(london_sql_data)
     end
 
     it 'updates the database if the same weather information already exists' do
-      database.augment(weather_data)
-      database.augment(weather_data)
+      database.augment(london_weather_data)
+      database.augment(london_weather_data)
 
       result = sql.query "SELECT * FROM weather WHERE name = 'London'"
 
@@ -37,13 +36,13 @@ RSpec.describe SQLDatabase do
     end
 
     it 'returns true if no expections are made' do
-      result = database.augment(weather_data)
+      result = database.augment(london_weather_data)
 
       expect(result).to be true
     end
 
     context 'if data is bad' do
-      bad_data = { weather: [{ description: 'Irrelivent' }], main: {} }
+      bad_data = { foo: 'bar' }
 
       it 'does not raise an error' do
         expect { database.augment(bad_data) }.not_to raise_error
@@ -58,7 +57,7 @@ RSpec.describe SQLDatabase do
       it 'logs a failure message' do
         database.augment(bad_data)
 
-        expect(database.error_message).to include('Bad weather data! NOT NULL constraint failed')
+        expect(database.error_message).to include('NOT NULL constraint failed: weather.name')
       end
     end
   end
@@ -79,7 +78,7 @@ RSpec.describe SQLDatabase do
 
       result = database.retrieve_weather('London')
 
-      expect(result).to eq(london_weather_output)
+      expect(result).to eq(london_sql_data)
     end
 
     it 'returns an empty hash if no matching city name is found' do
@@ -91,9 +90,8 @@ RSpec.describe SQLDatabase do
     end
   end
 
-  def london_weather_output # rubocop:disable Metrics/MethodLength
+  def london_weather_data
     {
-      id: 1,
       name: 'London',
       unix_date: 1_617_973_201,
       description: 'overcast clouds',
@@ -103,6 +101,10 @@ RSpec.describe SQLDatabase do
       temp_max: 14.44,
       humidity: 47
     }
+  end
+
+  def london_sql_data
+    london_weather_data.merge({ id: 1 })
   end
 
   def add_weather_row
