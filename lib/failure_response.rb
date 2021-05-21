@@ -8,12 +8,8 @@ class FailureResponse
     @error_message = nil
   end
 
-  def ok?
-    @error_message = check_error
-    false
-  end
-
   def body
+    @error_message = check_error
     {}
   end
 

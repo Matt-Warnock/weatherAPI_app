@@ -19,7 +19,7 @@ class SQLDatabase
 
     true
   rescue SQLite3::ConstraintException => e
-    @error_message = e.message
+    @error_message = "Bad weather data! #{e}"
     false
   end
 
@@ -35,8 +35,10 @@ class SQLDatabase
   attr_reader :db
 
   def order_row(data)
-    data.values_at(
-      :name, :unix_date, :description, :temp, :feels_like, :temp_min, :temp_max, :humidity
+    row = data.values_at(:name, :dt)
+    row << data[:weather].first[:description]
+    row + data[:main].values_at(
+      :temp, :feels_like, :temp_min, :temp_max, :humidity
     )
   end
 

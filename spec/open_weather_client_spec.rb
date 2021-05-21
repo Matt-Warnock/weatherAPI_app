@@ -46,6 +46,7 @@ RSpec.describe OpenWeatherClient do
     end
 
     it 'returns weather infomation if successful' do
+      weather_information = JSON.parse(weather_info, { symbolize_names: true })
       stub_with_querys { |stub| stub.to_return(status: 200, body: weather_info) }
 
       result = client.check_weather(city_name)
@@ -99,18 +100,5 @@ RSpec.describe OpenWeatherClient do
       }
     )
     yield stub if block_given?
-  end
-
-  def weather_information
-    {
-      name: 'London',
-      unix_date: 1_617_973_201,
-      description: 'overcast clouds',
-      temp: 13.04,
-      feels_like: 11.63,
-      temp_min: 11.67,
-      temp_max: 14.44,
-      humidity: 47
-    }
   end
 end
