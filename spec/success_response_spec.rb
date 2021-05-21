@@ -22,7 +22,7 @@ RSpec.describe SuccessResponse do
 
   describe '#body' do
     it 'returns an empty hash if response has an empty body' do
-      custom_response = described_class.new(successful_response(nil))
+      custom_response = described_class.new(successful_response(''))
 
       expect(custom_response.body).to eq({})
     end

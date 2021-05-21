@@ -30,12 +30,11 @@ RSpec.describe WeatherRetriever do
       before { open_weather_stub }
 
       context 'when database is up to data' do
-        let(:earier_today) { Time.utc(today.year, today.month, today.day, today.hour - 3).to_i }
+        let(:earlier_today) { Time.utc(today.year, today.month, today.day, today.hour - 3).to_i }
 
         before do
           create_table
-          setup_name_index
-          add_weather_row(earier_today)
+          add_weather_row(earlier_today)
         end
 
         it 'does not call the client' do
@@ -51,13 +50,13 @@ RSpec.describe WeatherRetriever do
             rows.next_hash.transform_keys(&:to_sym)
           end
 
-          expect(result[:unix_date]).to eq(earier_today)
+          expect(result[:unix_date]).to eq(earlier_today)
         end
 
         it 'returns weather' do
           set_up_retriever.run
 
-          expect(presenter).to have_received(:collect_weather).with(todays_weather(date: earier_today))
+          expect(presenter).to have_received(:collect_weather).with(todays_weather(date: earlier_today))
         end
       end
 
@@ -96,7 +95,6 @@ RSpec.describe WeatherRetriever do
 
         before do
           create_table
-          setup_name_index
           add_weather_row(two_days_ago)
         end
 
@@ -131,15 +129,17 @@ RSpec.describe WeatherRetriever do
     end
 
     context 'when failure' do
-      before { open_weather_stub(status: 404) }
+      let(:error_stub) { open_weather_stub(status: 404) }
 
       it 'returns no weather' do
+        error_stub
         set_up_retriever.run
 
         expect(presenter).to have_received(:collect_weather).with({})
       end
 
       it 'does not augment database' do
+        error_stub
         set_up_retriever.run
 
         result = sql.query("SELECT * FROM weather WHERE name = 'London'", &:none?)
@@ -148,6 +148,7 @@ RSpec.describe WeatherRetriever do
       end
 
       it 'logs the error if client fails' do
+        error_stub
         set_up_retriever.run
 
         expect(presenter).to have_received(:log_error).once.with(
@@ -207,11 +208,8 @@ RSpec.describe WeatherRetriever do
   def create_table
     sql.execute 'CREATE TABLE weather(
     id INTEGER PRIMARY KEY, name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
-    );'
-  end
-
-  def setup_name_index
-    sql.execute 'CREATE UNIQUE INDEX idx_name ON weather(name);'
+    );
+    CREATE UNIQUE INDEX idx_name ON weather(name);'
   end
 
   def add_weather_row(unix_date = today.to_i)
