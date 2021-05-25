@@ -169,7 +169,7 @@ RSpec.describe WeatherRetriever do
 
   def set_up_retriever
     described_class.new(
-      OpenWeatherClient.new(CityNameConverter.new('fixtures/london_city_id.yaml')),
+      OpenWeatherClient.new(CityNameConverter.new('fixtures/test_city_list.yaml')),
       SQLDatabase.new('file::memory:?cache=shared'),
       presenter
     )

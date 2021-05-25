@@ -3,10 +3,10 @@
 require 'city_name_converter'
 
 RSpec.describe CityNameConverter do
+  let(:converter) { described_class.new('fixtures/test_city_list.yaml') }
+
   describe '#name_to_id' do
     it 'converts a city name to its designated city id code' do
-      converter = described_class.new('fixtures/london_city_id.yaml')
-
       expect(converter.name_to_id('London')).to eq(2_643_743)
     end
 
@@ -14,6 +14,12 @@ RSpec.describe CityNameConverter do
       converter = described_class.new('irelevent.yaml')
 
       expect { converter.name_to_id('London') }.to raise_error('Invalid or missing .yml file')
+    end
+  end
+
+  describe '#city_names' do
+    it 'returns all city names in YAML file' do
+      expect(converter.city_names).to eq(%w[London Brighton])
     end
   end
 end

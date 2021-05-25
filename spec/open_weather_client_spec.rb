@@ -5,7 +5,7 @@ require 'open_weather_client'
 
 RSpec.describe OpenWeatherClient do
   let(:city_name) { 'London' }
-  let(:client) { described_class.new(CityNameConverter.new('fixtures/london_city_id.yaml')) }
+  let(:client) { described_class.new(CityNameConverter.new('fixtures/test_city_list.yaml')) }
   let(:weather_info) { File.open('fixtures/london_weather.json').read }
 
   describe '#check_weather' do
