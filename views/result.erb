@@ -1,0 +1,21 @@
+<div class="window">
+  <div class="<%= @page.weather_data[:description] %>">
+
+  </div>
+</div>
+<div class="information">
+  <div class="high-low-weather">
+    <span><%= @page.weather_data[:temp_max] ||= '-' %></span>
+    <span><%= @page.weather_data[:temp_min] ||= '-' %></span>
+  </div>
+  <div class="main-summary">
+    <span><%= @page.weather_data[:temp] %></span>
+    <p><%= @page.weather_data[:description] %></p>
+    <p>Feels like <%= @page.weather_data[:feels_like] ||= '-' %></p>
+  </div>
+  <div class="additional">
+    <p><%= @page.weather_data[:name] %></p>
+    <p><%= @page.weather_data[:date] %></p>
+    <p>Humidity <%= @page.weather_data[:humidity] ||= '-' %></p>
+  </div>
+</div>

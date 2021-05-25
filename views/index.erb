@@ -1,0 +1,18 @@
+<div class="window">
+  <div class="closed">
+
+  </div>
+</div>
+
+<form class="city-choice" action="/weather" method="post">
+  <label for="cities">Choose city: </label>
+
+  <select class="cities" name="cities" required>
+
+    <% @page.city_names.each do |city| %>
+    <option name="city" value="<%= city %>"><%= city %></option>
+    <% end %>
+
+  </select>
+  <input type="submit" value="Check Weather">
+</form>
