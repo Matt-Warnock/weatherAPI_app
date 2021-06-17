@@ -14,8 +14,8 @@ class SQLDatabase
 
   def augment(data)
     db.execute('INSERT OR REPLACE INTO weather(
-      name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
-      ) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', order_row(data))
+      name, unix_date, description, icon, temp, feels_like, temp_min, temp_max, humidity
+      ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', order_row(data))
 
     true
   rescue SQLite3::ConstraintException => e
@@ -36,16 +36,17 @@ class SQLDatabase
 
   def order_row(data)
     data.values_at(
-      :name, :unix_date, :description, :temp, :feels_like, :temp_min, :temp_max, :humidity
+      :name, :unix_date, :description, :icon, :temp, :feels_like, :temp_min, :temp_max, :humidity
     )
   end
 
-  def create_table
+  def create_table # rubocop:disable Metrics/MethodLength
     db.execute 'CREATE TABLE IF NOT EXISTS weather(
     id INTEGER PRIMARY KEY,
     name VARCHAR(10) NOT NULL,
     unix_date INTEGER NOT NULL,
     description VARCHAR(20),
+    icon VARCHAR(4),
     temp REAL NOT NULL,
     feels_like REAL,
     temp_min REAL,

@@ -197,6 +197,7 @@ RSpec.describe WeatherRetriever do
       name: 'London',
       unix_date: date,
       description: 'overcast clouds',
+      icon: '04d',
       temp: 13.04,
       feels_like: 11.63,
       temp_min: 11.67,
@@ -207,16 +208,16 @@ RSpec.describe WeatherRetriever do
 
   def create_table
     sql.execute 'CREATE TABLE weather(
-    id INTEGER PRIMARY KEY, name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
+    id INTEGER PRIMARY KEY, name, unix_date, description, icon, temp, feels_like, temp_min, temp_max, humidity
     );
     CREATE UNIQUE INDEX idx_name ON weather(name);'
   end
 
   def add_weather_row(unix_date = today.to_i)
-    order_row = ['London', unix_date, 'overcast clouds', 13.04, 11.63, 11.67, 14.44, 47]
+    order_row = ['London', unix_date, 'overcast clouds', '04d', 13.04, 11.63, 11.67, 14.44, 47]
 
     sql.execute('INSERT INTO weather(
-    name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
-    ) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', order_row)
+    name, unix_date, description, icon, temp, feels_like, temp_min, temp_max, humidity
+    ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', order_row)
   end
 end

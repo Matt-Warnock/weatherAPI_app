@@ -101,11 +101,12 @@ RSpec.describe OpenWeatherClient do
     yield stub if block_given?
   end
 
-  def weather_information
+  def weather_information # rubocop:disable Metrics/MethodLength
     {
       name: 'London',
       unix_date: 1_617_973_201,
       description: 'overcast clouds',
+      icon: '04d',
       temp: 13.04,
       feels_like: 11.63,
       temp_min: 11.67,

@@ -4,6 +4,17 @@ class Presenter
   DEGREE_ENTITY = '&deg;'
   PERCENT_ENTITY = '&percnt;'
   TEMPERATURES_KEYS = %i[temp feels_like temp_min temp_max].freeze
+  ICON_TO_CLASSNAME = {
+    '01' => 'clear-sky',
+    '02' => 'few-clouds',
+    '03' => 'scattered-clouds',
+    '04' => 'broken-clouds',
+    '09' => 'shower-rain',
+    '10' => 'rain',
+    '11' => 'thunderstorm',
+    '13' => 'snow',
+    '50' => 'mist'
+  }.freeze
 
   attr_reader :error, :weather_data
 
@@ -32,6 +43,7 @@ class Presenter
     @weather_data = data
     format_temperatures
     weather_data[:humidity] = data[:humidity].to_s + PERCENT_ENTITY
+    weather_data[:icon] = ICON_TO_CLASSNAME[data[:icon].chop]
     weather_data[:date] = utc_to_datatime
   end
 

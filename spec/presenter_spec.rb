@@ -67,9 +67,11 @@ RSpec.describe Presenter do
     end
   end
 
-  def unformated_data
+  def unformated_data # rubocop:disable Metrics/MethodLength
     {
       name: 'London',
+      description: 'overcast clouds',
+      icon: '04d',
       temp: 13.04,
       feels_like: 11.63,
       temp_min: 11.67,
@@ -79,9 +81,11 @@ RSpec.describe Presenter do
     }
   end
 
-  def formated_data
+  def formated_data # rubocop:disable Metrics/MethodLength
     {
       name: 'London',
+      description: 'overcast clouds',
+      icon: 'broken-clouds',
       temp: '13&deg;C',
       feels_like: '12&deg;C',
       temp_min: '12&deg;C',
