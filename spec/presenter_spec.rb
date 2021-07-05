@@ -60,10 +60,26 @@ RSpec.describe Presenter do
   end
 
   describe '#display_date' do
-    it 'returns the weather date as a date string in utc ' do
+    it 'returns the weather date as a date string in UTC ' do
       presenter.format_weather(unformated_data)
 
       expect(presenter.display_date).to eq('Fri  9 Apr')
+    end
+  end
+
+  describe '#icon_classname' do
+    it 'returns classname of currant weathers icon' do
+      presenter.format_weather(unformated_data)
+
+      expect(presenter.icon_classname).to eq('broken-clouds')
+    end
+  end
+
+  describe '#datetime' do
+    it 'returns datetime string' do
+      presenter.format_weather(unformated_data)
+
+      expect(presenter.datetime).to eq('2021-04-09T13:00:01+00:00')
     end
   end
 
@@ -85,14 +101,13 @@ RSpec.describe Presenter do
     {
       name: 'London',
       description: 'overcast clouds',
-      icon: 'broken-clouds',
+      icon: '04d',
       temp: '13&deg;C',
       feels_like: '12&deg;C',
       temp_min: '12&deg;C',
       temp_max: '14&deg;C',
       humidity: '47&percnt;',
-      unix_date: 1_617_973_201,
-      date: '2021-04-09T13:00:01+00:00'
+      unix_date: 1_617_973_201
     }
   end
 end

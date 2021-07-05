@@ -43,8 +43,14 @@ class Presenter
     @weather_data = data
     format_temperatures
     weather_data[:humidity] = weather_data[:humidity].to_s + PERCENT_ENTITY
-    weather_data[:icon] = icon_to_classname
-    weather_data[:date] = utc_to_datatime
+  end
+
+  def icon_classname
+    ICON_TO_CLASSNAME[weather_data[:icon].chop]
+  end
+
+  def datetime
+    unix_to_utc.to_datetime.to_s
   end
 
   def display_date
@@ -57,14 +63,6 @@ class Presenter
 
   def unix_to_utc
     Time.at(weather_data[:unix_date]).utc
-  end
-
-  def utc_to_datatime
-    unix_to_utc.to_datetime.to_s
-  end
-
-  def icon_to_classname
-    ICON_TO_CLASSNAME[weather_data[:icon].chop]
   end
 
   def format_temperatures
