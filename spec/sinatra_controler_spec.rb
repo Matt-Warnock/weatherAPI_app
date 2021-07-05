@@ -40,12 +40,16 @@ RSpec.describe 'sinatra_controler' do
 
       it 'displays temperatures' do
         expect(last_response.body).to match(
-          /(14&deg;C)#{any_html}(12&deg;C)#{any_html}(13&deg;C)#{any_html}(Feels like 12&deg;C)/
+          /(13&deg;C)#{any_html}(14&deg;C)#{any_html}(12&deg;C)#{any_html}(Feels like 12&deg;C)/
         )
       end
 
       it 'displays weather description' do
-        expect(last_response.body).to match('<p>overcast clouds</p>')
+        expect(last_response.body).to match('<p class="main description">overcast clouds</p>')
+      end
+
+      it 'sets weather icon id' do
+        expect(last_response.body).to match('<span class="broken-clouds">')
       end
 
       it 'displays city with date' do

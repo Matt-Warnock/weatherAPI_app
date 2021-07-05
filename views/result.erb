@@ -1,29 +1,27 @@
-<div class="window">
-  <div class="<%= @page.weather_data[:description] %>">
+<h2 class="city"><%= @page.weather_data[:name] %></h2>
+<h1 class="main-temp"><%= @page.weather_data[:temp] %></h1>
 
-  </div>
-</div>
 <div class="information">
-  <div class="high-low-weather">
-    <span><%= @page.weather_data[:temp_max] ||= '-' %></span>
-    <span><%= @page.weather_data[:temp_min] ||= '-' %></span>
-  </div>
-  <div class="main-summary">
-    <span><%= @page.weather_data[:temp] %></span>
-    <p><%= @page.weather_data[:description] %></p>
-    <p>Feels like <%= @page.weather_data[:feels_like] ||= '-' %></p>
-  </div>
-  <div class="additional">
 
-    <p><%= @page.weather_data[:name] %></p>
-    <time id="weather-date" datetime="<%= @page.weather_data[:date] %>"><%= @page.display_date %></time>
-    <p>Humidity <%= @page.weather_data[:humidity] ||= '-' %></p>
+  <div class="icon">
+    <span class="<%= @page.weather_data[:icon] %>">
+      <img src="../images/O9S1SH1.png" alt="Weather icon" width="400px" height="400px"></img>
+    </span>
   </div>
 
-    <script type="text/javascript" src="js/src/localDate.js"></script>
+  <span class="temp-max"><%= @page.weather_data[:temp_max] %></span>
+  <span class="temp-min"><%= @page.weather_data[:temp_min] %></span>
 
-    <script>
-      (new LocalDate('weather-date')).display();
-    </script>
-  </div>
+  <p class="main description"><%= @page.weather_data[:description] %></p>
+  <p class="main feels-like">Feels like <%= @page.weather_data[:feels_like] %></p>
+
+  <time class="additional time" id="weather-date" datetime="<%= @page.weather_data[:date] %>"><%= @page.display_date %></time>
+  <p class="additional">Humidity <%= @page.weather_data[:humidity]%></p>
+
+
+  <script type="text/javascript" src="js/src/localDate.js"></script>
+
+  <script>
+    (new LocalDate('weather-date')).display();
+  </script>
 </div>
