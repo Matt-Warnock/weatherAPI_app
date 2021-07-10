@@ -32,20 +32,28 @@ class Presenter
     @weather_data = data
     format_temperatures
     weather_data[:humidity] = data[:humidity].to_s + PERCENT_ENTITY
-    weather_data[:date] = format_date(data[:unix_date])
+    weather_data[:date] = utc_to_datatime
+  end
+
+  def display_date
+    unix_to_utc.strftime('%a %e %b')
   end
 
   private
 
   attr_reader :name_converter, :user_choice
 
+  def unix_to_utc
+    Time.at(weather_data[:unix_date]).utc
+  end
+
+  def utc_to_datatime
+    unix_to_utc.to_datetime.to_s
+  end
+
   def format_temperatures
     weather_data.slice(*TEMPERATURES_KEYS).each_pair do |key, value|
       weather_data[key] = "#{value.round}#{DEGREE_ENTITY}C"
     end
-  end
-
-  def format_date(unix_date)
-    Time.at(unix_date).localtime.strftime('Today %a %e %b')
   end
 end

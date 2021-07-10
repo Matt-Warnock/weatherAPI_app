@@ -49,7 +49,7 @@ RSpec.describe 'sinatra_controler' do
       end
 
       it 'displays city with date' do
-        expect(last_response.body).to match(/#{any_html}(London)#{any_html}(Today Fri  9 Apr)/)
+        expect(last_response.body).to match(/#{any_html}(London)#{any_html}(Fri  9 Apr)/)
       end
 
       it 'displays weather humidity' do

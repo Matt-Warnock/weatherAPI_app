@@ -14,8 +14,16 @@
     <p>Feels like <%= @page.weather_data[:feels_like] ||= '-' %></p>
   </div>
   <div class="additional">
+
     <p><%= @page.weather_data[:name] %></p>
-    <p><%= @page.weather_data[:date] %></p>
+    <time id="weather-date" datetime="<%= @page.weather_data[:date] %>"><%= @page.display_date %></time>
     <p>Humidity <%= @page.weather_data[:humidity] ||= '-' %></p>
+  </div>
+
+    <script type="text/javascript" src="js/src/localDate.js"></script>
+
+    <script>
+      (new LocalDate('weather-date')).display();
+    </script>
   </div>
 </div>

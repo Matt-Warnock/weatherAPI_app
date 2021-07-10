@@ -59,6 +59,14 @@ RSpec.describe Presenter do
     end
   end
 
+  describe '#display_date' do
+    it 'returns the weather date as a date string in utc ' do
+      presenter.format_weather(unformated_data)
+
+      expect(presenter.display_date).to eq('Fri  9 Apr')
+    end
+  end
+
   def unformated_data
     {
       name: 'London',
@@ -80,7 +88,7 @@ RSpec.describe Presenter do
       temp_max: '14&deg;C',
       humidity: '47&percnt;',
       unix_date: 1_617_973_201,
-      date: 'Today Fri  9 Apr'
+      date: '2021-04-09T13:00:01+00:00'
     }
   end
 end

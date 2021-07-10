@@ -9,6 +9,65 @@
 Weather information for various cites world-wide.
 
 
+## Testing JavaScript in jasmine
+
+Please run jasmine tests in either Chrome or Firefox browsers on a Mac or Linux OS in a local server.
+
+Before running tests, specify the locale language and the TZ environment variables for your browser of choice:
+
+### For Firefox:
+
+* Download and Install the french locale packages:
+
+  for Mac OS X:
+
+  I'm not exactly sure what the code is, sorry!
+
+  for Linux:
+
+  ```bash
+  sudo locale-gen fr_FR fr_FR.UTF-8 && echo "Success"
+
+  sudo apt-get install firefox-locale-fr
+  ```
+
+* Start Firefox using this command:
+
+  ```bash
+  TZ="Australia/Melbourne" LC_ALL=fr_FR firefox -no-remote & bin/app
+  ```
+
+  (This should work on both Mac OS X and Linux)
+
+### For Chrome:
+
+* First, create a new empty directory for a separate Chrome user profile:
+
+   ```bash
+   mkdir ~/chrome-profile-weather-test
+   ```
+
+* Then, to start Chrome, use these commands:
+
+   for Mac OS X:
+
+   ```bash
+   TZ="Australia/Melbourne" LANGUAGE=fr open -na "Google Chrome" --args "--user-data-dir=$HOME/chrome-profile-weather-test" & bin/app
+   ```
+
+   for Linux:
+
+   ```bash
+   TZ="Australia/Melbourne" LANGUAGE=fr google-chrome "--user-data-dir=$HOME/chrome-profile-weather-test" & bin/app
+   ```
+
+#### Run jasmine tests in local server:
+
+* open the local server link:
+```
+http://localhost:4567/js/SpecRunner.html
+```
+
 ## Badges
 
 * Turn your repo ON in Travis (CI), in Coveralls (coverage status), codeclimate (maintainability), and depfu (dependency status).
