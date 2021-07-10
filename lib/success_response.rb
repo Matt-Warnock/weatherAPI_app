@@ -27,8 +27,10 @@ class SuccessResponse
   private
 
   def format_data(data)
-    select_data = { name: data[:name], unix_date: data[:dt] }
-    select_data[:description] = data.dig(:weather, 0, :description)
+    condition = data.dig(:weather, 0) || {}
+    select_data = {
+      name: data[:name], unix_date: data[:dt], description: condition[:description], icon: condition[:icon]
+    }
     select_data.merge((data[:main] || {}).except(:pressure))
   end
 

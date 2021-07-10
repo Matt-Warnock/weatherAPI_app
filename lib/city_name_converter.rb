@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pathname'
 require 'yaml'
 
 class CityNameConverter
@@ -8,15 +9,19 @@ class CityNameConverter
   end
 
   def name_to_id(name)
-    load_file[name]
+    city_codes[name]
+  end
+
+  def city_names
+    city_codes.keys
   end
 
   private
 
   attr_reader :file_path
 
-  def load_file
-    YAML.load_file(file_path)
+  def city_codes
+    @city_codes ||= YAML.load_file(file_path)
   rescue Errno::ENOENT
     raise 'Invalid or missing .yml file'
   end

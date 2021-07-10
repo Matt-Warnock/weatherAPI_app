@@ -5,7 +5,7 @@ require 'open_weather_client'
 
 RSpec.describe OpenWeatherClient do
   let(:city_name) { 'London' }
-  let(:client) { described_class.new(CityNameConverter.new('fixtures/london_city_id.yaml')) }
+  let(:client) { described_class.new(CityNameConverter.new('fixtures/test_city_list.yaml')) }
   let(:weather_info) { File.open('fixtures/london_weather.json').read }
 
   describe '#check_weather' do
@@ -101,11 +101,12 @@ RSpec.describe OpenWeatherClient do
     yield stub if block_given?
   end
 
-  def weather_information
+  def weather_information # rubocop:disable Metrics/MethodLength
     {
       name: 'London',
       unix_date: 1_617_973_201,
       description: 'overcast clouds',
+      icon: '04d',
       temp: 13.04,
       feels_like: 11.63,
       temp_min: 11.67,

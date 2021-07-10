@@ -1,0 +1,12 @@
+<form class="city-choice" action="/weather" method="post">
+  <select class="cities" name="cities" required>
+    <option value="" disabled selected>choose city</option>
+
+    <% @page.city_names.each do |city| %>
+    <option name="city" value="<%= city %>"><%= city %></option>
+    <% end %>
+
+  </select>
+  <input type="submit" value="&#8227;">
+  <label for="cities">Select city to see todays weather.</label>
+</form>

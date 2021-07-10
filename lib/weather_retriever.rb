@@ -8,8 +8,8 @@ class WeatherRetriever
   end
 
   def run
-    city_name = presenter.city_name
-    presenter.collect_weather(weather_data(city_name))
+    city_name = presenter.valid_city_name
+    presenter.format_weather(weather_data(city_name))
   end
 
   private
@@ -28,10 +28,10 @@ class WeatherRetriever
 
   def augment_database_with(city_name)
     response = client.check_weather(city_name)
-    return presenter.log_error(response.error_message) unless response.ok?
+    return presenter.add_error(response.error_message) unless response.ok?
 
     successful_entry = database.augment(response.body)
-    presenter.log_error(database.error_message) unless successful_entry
+    presenter.add_error(database.error_message) unless successful_entry
   end
 
   def out_of_date?(stored_weather)

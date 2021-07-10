@@ -23,7 +23,7 @@ RSpec.describe WeatherRetriever do
       open_weather_stub
       set_up_retriever.run
 
-      expect(presenter).to have_received(:city_name).once
+      expect(presenter).to have_received(:valid_city_name).once
     end
 
     context 'When successful' do
@@ -56,7 +56,7 @@ RSpec.describe WeatherRetriever do
         it 'returns weather' do
           set_up_retriever.run
 
-          expect(presenter).to have_received(:collect_weather).with(todays_weather(date: earlier_today))
+          expect(presenter).to have_received(:format_weather).with(todays_weather(date: earlier_today))
         end
       end
 
@@ -80,13 +80,13 @@ RSpec.describe WeatherRetriever do
         it 'returns updated weather' do
           set_up_retriever.run
 
-          expect(presenter).to have_received(:collect_weather).with(todays_weather)
+          expect(presenter).to have_received(:format_weather).with(todays_weather)
         end
 
         it 'has no client or database errors' do
           set_up_retriever.run
 
-          expect(presenter).not_to have_received(:log_error)
+          expect(presenter).not_to have_received(:add_error)
         end
       end
 
@@ -117,13 +117,13 @@ RSpec.describe WeatherRetriever do
         it 'returns updated weather' do
           set_up_retriever.run
 
-          expect(presenter).to have_received(:collect_weather).with(todays_weather(id: 2))
+          expect(presenter).to have_received(:format_weather).with(todays_weather(id: 2))
         end
 
         it 'has no client or database errors' do
           set_up_retriever.run
 
-          expect(presenter).not_to have_received(:log_error)
+          expect(presenter).not_to have_received(:add_error)
         end
       end
     end
@@ -135,7 +135,7 @@ RSpec.describe WeatherRetriever do
         error_stub
         set_up_retriever.run
 
-        expect(presenter).to have_received(:collect_weather).with({})
+        expect(presenter).to have_received(:format_weather).with({})
       end
 
       it 'does not augment database' do
@@ -151,7 +151,7 @@ RSpec.describe WeatherRetriever do
         error_stub
         set_up_retriever.run
 
-        expect(presenter).to have_received(:log_error).once.with(
+        expect(presenter).to have_received(:add_error).once.with(
           "I seemed to have lost the weather API!\n It might be because an invalid city was entered."
         )
       end
@@ -162,23 +162,23 @@ RSpec.describe WeatherRetriever do
 
         set_up_retriever.run
 
-        expect(presenter).to have_received(:log_error).once.with('NOT NULL constraint failed: weather.name')
+        expect(presenter).to have_received(:add_error).once.with('NOT NULL constraint failed: weather.name')
       end
     end
   end
 
   def set_up_retriever
     described_class.new(
-      OpenWeatherClient.new(CityNameConverter.new('fixtures/london_city_id.yaml')),
+      OpenWeatherClient.new(CityNameConverter.new('fixtures/test_city_list.yaml')),
       SQLDatabase.new('file::memory:?cache=shared'),
       presenter
     )
   end
 
   def presenter_stub
-    allow(presenter).to receive(:city_name) { 'London' }
-    allow(presenter).to receive(:collect_weather).with(kind_of(Hash))
-    allow(presenter).to receive(:log_error).with(kind_of(String))
+    allow(presenter).to receive(:valid_city_name) { 'London' }
+    allow(presenter).to receive(:format_weather).with(kind_of(Hash))
+    allow(presenter).to receive(:add_error).with(kind_of(String))
   end
 
   def open_weather_stub(status: 200, body: weather_info)
@@ -197,6 +197,7 @@ RSpec.describe WeatherRetriever do
       name: 'London',
       unix_date: date,
       description: 'overcast clouds',
+      icon: '04d',
       temp: 13.04,
       feels_like: 11.63,
       temp_min: 11.67,
@@ -207,16 +208,16 @@ RSpec.describe WeatherRetriever do
 
   def create_table
     sql.execute 'CREATE TABLE weather(
-    id INTEGER PRIMARY KEY, name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
+    id INTEGER PRIMARY KEY, name, unix_date, description, icon, temp, feels_like, temp_min, temp_max, humidity
     );
     CREATE UNIQUE INDEX idx_name ON weather(name);'
   end
 
   def add_weather_row(unix_date = today.to_i)
-    order_row = ['London', unix_date, 'overcast clouds', 13.04, 11.63, 11.67, 14.44, 47]
+    order_row = ['London', unix_date, 'overcast clouds', '04d', 13.04, 11.63, 11.67, 14.44, 47]
 
     sql.execute('INSERT INTO weather(
-    name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
-    ) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', order_row)
+    name, unix_date, description, icon, temp, feels_like, temp_min, temp_max, humidity
+    ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', order_row)
   end
 end

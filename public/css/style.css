@@ -1,0 +1,278 @@
+html {
+  min-height: 100%;
+}
+
+body {
+  background: linear-gradient(#95d6ea, #62a1c7);
+
+  font-family: 'Roboto', sans-serif;
+  color: #FFFFFF;
+}
+
+.title {
+  width: 13rem;
+  margin: 12% auto;
+}
+
+.title h1 {
+  position: relative;
+  bottom: -3px;
+  left: -3px;
+
+  margin: 0;
+
+  text-align: center;
+  font-family: 'air-mitalic', sans-serif;
+  font-size: 3.6rem;
+  color: #FFFFFF;
+
+  text-shadow: 2px 2px 0px #15719f, 5px 4px 0px rgba(0,0,0,0.15);
+}
+
+.title h1::after {
+  position: absolute;
+  top: 1rem;
+  right: -1rem;
+  content: " ";
+
+  width: 7.7rem;
+  border-bottom: 0.3rem double #FFFFFF;
+
+  box-shadow: 2px 2px 0px #15719f, 5px 4px 0px rgba(0,0,0,0.15);
+}
+
+.title span {
+  position: absolute;
+  bottom: -0.5rem;
+  right: -1rem;
+
+  font-family: 'Yellowtail-Regular', cursive;
+  font-size: 2rem;
+  color: #15719f;
+
+  text-shadow: 0.4px 0.4px 0.5px rgba(0,0,0,0.15);
+}
+
+.container {
+  max-width: 30em;
+  margin: auto;
+  padding: 1em;
+}
+
+
+p {
+  margin: 0;
+}
+
+.city-choice {
+  margin: 5% auto;
+  padding: 20px;
+}
+
+.cities {
+  width: 92%;
+}
+
+.cities:first-child {
+  color: grey;
+}
+
+.city-choice label {
+  display: block;
+  margin-top: 7%;
+  text-align: center;
+
+  font-weight: 100;
+}
+
+.city {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.main-temp {
+  text-align: center;
+  margin: 6%;
+
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+.information {
+  display: grid;
+  grid-template: 1fr 1fr / 0.8fr 1fr 2fr;
+
+  background-color: #15719f;
+  width: 95%;
+  padding: 15px 5px;
+  margin: 20% auto;
+  border-radius: 5px;
+
+  font-size: 0.9rem;
+}
+
+.temp-max {
+  display: inherit;
+  align-items: flex-end;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.temp-min {
+  grid-column: 2;
+
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+
+.main {
+  grid-column: 3;
+}
+
+.description, .time {
+  display: inherit;
+  grid-row: 1;
+  align-items: flex-end;
+}
+
+.feels-like {
+  font-weight: 300;
+}
+
+.additional {
+  grid-column: 4;
+  font-weight: 300;
+}
+
+.icon {
+  display: inherit;
+  grid-row: span 2;
+
+  justify-content: center;
+}
+
+
+.icon span {
+  overflow: hidden;
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+span img {
+  position: relative;
+  max-width: 400%;
+  height: auto;
+}
+
+.clear-sky img {
+  top: -100px;
+  left: -100px;
+}
+
+.few-clouds img {
+  top: -5px;
+  left: -50px;
+}
+
+.scattered-clouds img {
+  top: -5px;
+  left: -5px;
+}
+
+.broken-clouds img {
+  top: -5px;
+  left: -100px;
+}
+
+.shower-rain img {
+  top: -100px;
+  left: -5px;
+}
+
+.rain img {
+  top: -50px;
+  left: -50px;
+}
+
+.thunderstorm img {
+  top: -5px;
+  left: -145px;
+}
+
+.snow img {
+  top: -50px;
+  left: -100px;
+}
+
+.mist img {
+  top: -150px;
+  left: -50px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  margin: 5px;
+}
+
+footer p {
+  font-size: 0.5rem;
+}
+
+footer a {
+  color: #15719f;
+}
+
+@font-face {
+  font-family: 'air-mitalic';
+  src: url(../fonts/air-millhouse/air_mitalic.ttf);
+}
+
+@font-face {
+  font-family: 'Yellowtail-Regular';
+  src: url(../fonts/yellowtail/Yellowtail-Regular.ttf);
+}
+
+@media screen and (min-width: 815px) {
+  html {
+    font-size: 2.5em;
+  }
+
+  .title {
+    margin: 10px auto;
+  }
+
+  form {
+    margin: 11% auto;
+    font-size: 0.6rem;
+  }
+
+  form input {
+    padding: 2px 20px;
+  }
+
+  form label {
+    font-size: 0.8rem;
+  }
+
+  .information {
+    margin: 80px auto;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .title {
+    margin: 2% auto;
+  }
+
+  .main-temp {
+    margin: 2% auto;
+  }
+
+  .information {
+    margin: 0 auto;
+  }
+}

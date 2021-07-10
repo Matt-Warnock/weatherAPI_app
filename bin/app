@@ -1,4 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'dotenv'
+Dotenv.load
+
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require_relative '../sinatra_controler'
+
+SinatraControler.run!

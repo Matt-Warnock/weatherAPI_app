@@ -1,0 +1,27 @@
+<p class="city"><%= @page.weather_data[:name] %></p>
+<p class="main-temp"><%= @page.weather_data[:temp] %></p>
+
+<div class="information">
+
+  <div class="icon">
+    <span class="<%= @page.icon_classname %>">
+      <img src="../images/O9S1SH1.png" alt="Weather icon" width="400px" height="400px"></img>
+    </span>
+  </div>
+
+  <span class="temp-max"><%= @page.weather_data[:temp_max] %></span>
+  <span class="temp-min"><%= @page.weather_data[:temp_min] %></span>
+
+  <p class="main description"><%= @page.weather_data[:description] %></p>
+  <p class="main feels-like">Feels like <%= @page.weather_data[:feels_like] %></p>
+
+  <time class="additional time" id="weather-date" datetime="<%= @page.datetime %>"><%= @page.display_date %></time>
+  <p class="additional">Humidity <%= @page.weather_data[:humidity]%></p>
+
+
+  <script type="text/javascript" src="js/src/localDate.js"></script>
+
+  <script>
+    (new LocalDate('weather-date')).display();
+  </script>
+</div>

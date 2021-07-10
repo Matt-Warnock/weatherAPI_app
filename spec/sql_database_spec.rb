@@ -90,11 +90,12 @@ RSpec.describe SQLDatabase do
     end
   end
 
-  def london_weather_data
+  def london_weather_data # rubocop:disable Metrics/MethodLength
     {
       name: 'London',
       unix_date: 1_617_973_201,
       description: 'overcast clouds',
+      icon: '04d',
       temp: 13.04,
       feels_like: 11.63,
       temp_min: 11.67,
@@ -108,11 +109,11 @@ RSpec.describe SQLDatabase do
   end
 
   def add_weather_row
-    order_row = ['London', 1_617_973_201, 'overcast clouds', 13.04, 11.63, 11.67, 14.44, 47]
+    order_row = ['London', 1_617_973_201, 'overcast clouds', '04d', 13.04, 11.63, 11.67, 14.44, 47]
 
     sql.execute('INSERT INTO weather(
-    name, unix_date, description, temp, feels_like, temp_min, temp_max, humidity
-    ) VALUES(?, ?, ?, ?, ?, ?, ?, ?)', order_row)
+    name, unix_date, description, icon, temp, feels_like, temp_min, temp_max, humidity
+    ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', order_row)
   end
 
   def create_table
