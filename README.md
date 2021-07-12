@@ -9,64 +9,6 @@
 Weather information for various cites world-wide.
 
 
-## Testing JavaScript in jasmine
-
-Please run jasmine tests in either Chrome or Firefox browsers on a Mac or Linux OS in a local server.
-
-Before running tests, specify the locale language and the TZ environment variables for your browser of choice:
-
-### For Firefox:
-
-* Download and Install the french locale packages:
-
-  for Mac OS X:
-
-  I'm not exactly sure what the code is, sorry!
-
-  for Linux:
-
-  ```bash
-  sudo locale-gen fr_FR fr_FR.UTF-8 && echo "Success"
-
-  sudo apt-get install firefox-locale-fr
-  ```
-
-* Start Firefox using this command:
-
-  ```bash
-  TZ="Australia/Melbourne" LC_ALL=fr_FR firefox -no-remote & bin/app
-  ```
-
-  (This should work on both Mac OS X and Linux)
-
-### For Chrome:
-
-* First, create a new empty directory for a separate Chrome user profile:
-
-   ```bash
-   mkdir ~/chrome-profile-weather-test
-   ```
-
-* Then, to start Chrome, use these commands:
-
-   for Mac OS X:
-
-   ```bash
-   TZ="Australia/Melbourne" LANGUAGE=fr open -na "Google Chrome" --args "--user-data-dir=$HOME/chrome-profile-weather-test" & bin/app
-   ```
-
-   for Linux:
-
-   ```bash
-   TZ="Australia/Melbourne" LANGUAGE=fr google-chrome "--user-data-dir=$HOME/chrome-profile-weather-test" & bin/app
-   ```
-
-#### Run jasmine tests in local server:
-
-* open the local server link:
-```
-http://localhost:4567/js/SpecRunner.html
-```
 
 ## Badges
 
@@ -75,7 +17,6 @@ http://localhost:4567/js/SpecRunner.html
 
 
 ## How to use this project
-
 This is a Ruby project. Tell your Ruby version manager to set your local Ruby version to the one specified in the `Gemfile`.
 
 For example, if you are using [rbenv](https://cbednarski.com/articles/installing-ruby/):
@@ -97,7 +38,6 @@ gem install bundler
 rbenv rehash
 ```
 
-
 ### Folder structure
 
 * `bin `: Executable files
@@ -111,6 +51,16 @@ rbenv rehash
 bundle install
 ```
 
+#### OpenWeather API key:
+
+You will need to create an account in [OpenWeather](https://home.openweathermap.org/users/sign_up) (you can sign up for free).
+
+You will be sent an API key (APPID) that you will need to put in a .env file along with the API's URL in the root of this project like so:
+
+```bash
+API_KEY={API_Key}
+API_URL=https://api.openweathermap.org/data/2.5
+```
 
 ### To run the app
 
@@ -169,6 +119,64 @@ bundle exec rubocop
 
 ```bash
 bundle exec rake
+```
+## Testing JavaScript in jasmine
+
+Please run jasmine tests in either Chrome or Firefox browsers on a Mac or Linux OS in a local server.
+
+Before running tests, specify the locale language and the TZ environment variables for your browser of choice:
+
+### For Firefox:
+
+* Download and Install the french locale packages:
+
+  for Mac OS X:
+
+  I'm not exactly sure what the code is, sorry!
+
+  for Linux:
+
+  ```bash
+  sudo locale-gen fr_FR fr_FR.UTF-8 && echo "Success"
+
+  sudo apt-get install firefox-locale-fr
+  ```
+
+* Start Firefox using this command:
+
+  ```bash
+  TZ="Australia/Melbourne" LC_ALL=fr_FR firefox -no-remote & bin/app
+  ```
+
+  (This should work on both Mac OS X and Linux)
+
+### For Chrome:
+
+* First, create a new empty directory for a separate Chrome user profile:
+
+   ```bash
+   mkdir ~/chrome-profile-weather-test
+   ```
+
+* Then, to start Chrome, use these commands:
+
+   for Mac OS X:
+
+   ```bash
+   TZ="Australia/Melbourne" LANGUAGE=fr open -na "Google Chrome" --args "--user-data-dir=$HOME/chrome-profile-weather-test" & bin/app
+   ```
+
+   for Linux:
+
+   ```bash
+   TZ="Australia/Melbourne" LANGUAGE=fr google-chrome "--user-data-dir=$HOME/chrome-profile-weather-test" & bin/app
+   ```
+
+#### Run jasmine tests in local server:
+
+* open the local server link:
+```
+http://localhost:4567/js/SpecRunner.html
 ```
 
 
