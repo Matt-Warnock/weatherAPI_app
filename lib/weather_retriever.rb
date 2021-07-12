@@ -36,7 +36,7 @@ class WeatherRetriever
 
   def out_of_date?(stored_weather)
     date_stored = Time.at(stored_weather[:unix_date]).utc
-    a_day_in_seconds = 24 * 3600
-    date_stored + a_day_in_seconds < Time.now.utc
+    four_hours_in_seconds = 4 * 3600
+    date_stored + four_hours_in_seconds < Time.now.utc
   end
 end
