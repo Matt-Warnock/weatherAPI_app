@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Matt-Warnock/weatherAPI_app.svg?branch=main)](https://travis-ci.com/Matt-Warnock/weatherAPI_app)
+[![Build Status](https://app.travis-ci.com/Matt-Warnock/weatherAPI_app.svg?branch=master)](https://app.travis-ci.com/Matt-Warnock/weatherAPI_app)
 [![Coverage Status](https://coveralls.io/repos/github/Matt-Warnock/weatherAPI_app/badge.svg?branch=master)](https://coveralls.io/github/Matt-Warnock/weatherAPI_app?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c666d381261434f0c5ae/maintainability)](https://codeclimate.com/github/Matt-Warnock/weatherAPI_app/maintainability)
 [![Depfu](https://badges.depfu.com/badges/7212a0bd0ba7eb3446e4307a9919c375/overview.svg)](https://depfu.com/github/Matt-Warnock/weatherAPI_app?project_id=24041)
